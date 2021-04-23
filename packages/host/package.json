@@ -21,7 +21,7 @@
     "history": "^5.0.0",
     "i18next": "^20.2.1",
     "mobx": "^6.3.0",
-    "mobx-keystone": "^0.56.0",
+    "mobx-keystone": "^0.56.1",
     "mobx-react": "^7.1.0",
     "mobx-state-tree": "^5.0.1",
     "qs": "^6.10.1",
