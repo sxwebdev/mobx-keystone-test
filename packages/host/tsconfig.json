@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "src",
+    "paths": {
+      "types/*": ["types/*"],
+      "stores/*": ["stores/*"],
+      "config/*": ["config/*"],
+      "components/*": ["components/*"],
+      "fields": ["UI/form/fields"],
+      "UI/*": ["UI/*"],
+      "api/*": ["api/*"]
+    }
+  },
+  "extends": "../../configs/tsconfig-base",
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/custom.d.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "dist"]
+}
