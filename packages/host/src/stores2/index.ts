@@ -11,6 +11,7 @@ import {
   prop,
   //types,
 } from "mobx-keystone";
+import { v4 as uuidv4 } from "uuid";
 
 setGlobalConfig({
   modelAutoTypeChecking: ModelAutoTypeCheckingMode.AlwaysOn,
@@ -22,7 +23,7 @@ export class Todo extends Model({
   //   text: tProp(types.string),
   //   done: tProp(types.boolean, false),
 
-  id: prop<string | undefined>(),
+  id: prop(() => uuidv4()),
   text: prop<string>(),
   done: prop<boolean>(false),
 }) {
@@ -52,6 +53,15 @@ export class TodoList extends Model({
     return this.todos.filter((t) => t.done);
   }
 
+  @computed
+  get stats(): { total: number; pending: number; done: number } {
+    return {
+      total: this.todos.length,
+      pending: this.pending.length,
+      done: this.done.length,
+    };
+  }
+
   @modelAction
   add(todo: Todo): void {
     this.todos.push(todo);
@@ -66,20 +76,6 @@ export class TodoList extends Model({
   }
 }
 
-// export function createRootStore(): TodoList {
-//   const rootStore = new TodoList({
-//     todos: [
-//       new Todo({ text: "make mobx-keystone awesome!" }),
-//       new Todo({ text: "spread the word" }),
-//       new Todo({ text: "buy some milk", done: true }),
-//     ],
-//   });
-
-//   registerRootStore(rootStore);
-
-//   return rootStore;
-// }
-
 @model("nv/RootStore")
 class RootStore extends Model({ todoList: prop<TodoList>() }) {
   @modelAction
@@ -93,17 +89,18 @@ export const myRootStore = new RootStore({
     todos: [
       new Todo({ text: "make mobx-keystone awesome!" }),
       new Todo({ text: "spread the word" }),
-      new Todo({ text: "buy some milk", done: true }),
+      new Todo({ text: "buy some milk 1", done: true }),
+      new Todo({ text: "Some new text" }),
     ],
   }),
 });
 
 registerRootStore(myRootStore);
 
-const StoreContext2 = React.createContext<RootStore>({} as RootStore);
+const StoreContext = React.createContext<RootStore>({} as RootStore);
 
 export const useStoreKS: () => RootStore = () =>
-  React.useContext(StoreContext2) as RootStore;
-export const StoreProvider2 = StoreContext2.Provider;
+  React.useContext(StoreContext) as RootStore;
+export const StoreProvider = StoreContext.Provider;
 
 export type { RootStore };
