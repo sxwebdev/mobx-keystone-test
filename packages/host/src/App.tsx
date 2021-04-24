@@ -12,7 +12,7 @@ const App: React.FC = observer(() => {
           <div
             key={todo.id}
             onClick={() => todo.setDone(!todo.done)}
-            style={{ color: todo.done && "green" }}
+            style={{ color: todo.done ? "green" : "black" }}
             role="note"
             aria-hidden="true"
           >
