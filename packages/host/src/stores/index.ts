@@ -92,7 +92,7 @@ registerRootStore(myRootStore);
 
 const StoreContext = React.createContext<RootStore>({} as RootStore);
 
-export const useStoreKS: () => RootStore = () =>
+export const useStore: () => RootStore = () =>
   React.useContext(StoreContext) as RootStore;
 export const StoreProvider = StoreContext.Provider;
 

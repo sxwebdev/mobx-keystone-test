@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
-import { useStoreKS } from "stores/";
+import { useStore } from "@frontend/host/src/stores";
 
 const App: React.FC = observer(() => {
-  const { todoList } = useStoreKS();
+  const { todoList } = useStore();
 
   return (
     <>
