@@ -8,12 +8,38 @@ import {
   registerRootStore,
   setGlobalConfig,
   prop,
+  tProp,
+  types,
 } from "mobx-keystone";
 import { v4 as uuidv4 } from "uuid";
 
 setGlobalConfig({
   modelAutoTypeChecking: ModelAutoTypeCheckingMode.AlwaysOn,
 });
+
+@model("mv/pets/nested")
+export class PetsNested extends Model({
+  name: prop(""),
+  available: prop(true),
+  count: prop(18),
+
+  name2: tProp(types.string, ""),
+  available2: tProp(types.boolean, true),
+  count2: tProp(types.number, 18),
+}) {}
+
+@model("nv/pet")
+export class Pet extends Model({
+  id: prop(() => uuidv4()),
+  name: prop<string>(),
+}) {}
+
+@model("nv/pets")
+export class Pets extends Model({
+  isLoading: prop(false),
+  nested: prop<PetsNested>(),
+  pets: prop<Pet[]>(() => []),
+}) {}
 
 @model("nv/Todo")
 export class Todo extends Model({
@@ -70,7 +96,10 @@ export class TodoList extends Model({
 }
 
 @model("nv/RootStore")
-class RootStore extends Model({ todoList: prop<TodoList>() }) {
+export class RootStore extends Model({
+  todoList: prop<TodoList>(),
+  pets: prop<Pets>(),
+}) {
   @modelAction
   setTodos(userPreferences: TodoList): void {
     this.todoList = userPreferences;
@@ -86,6 +115,9 @@ export const myRootStore = new RootStore({
       new Todo({ text: "Some new text" }),
     ],
   }),
+  pets: new Pets({
+    nested: new PetsNested({}),
+  }),
 });
 
 registerRootStore(myRootStore);
@@ -95,5 +127,3 @@ const StoreContext = React.createContext<RootStore>({} as RootStore);
 export const useStore: () => RootStore = () =>
   React.useContext(StoreContext) as RootStore;
 export const StoreProvider = StoreContext.Provider;
-
-export type { RootStore };
