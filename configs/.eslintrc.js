@@ -106,5 +106,9 @@ module.exports = {
     "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react/display-name": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-null": "off",
+    "unicorn/no-useless-undefined": "off",
+    "unicorn/prefer-module": "off",
   },
 };

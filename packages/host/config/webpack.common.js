@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const tsImportPluginFactory = require("ts-import-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
@@ -62,17 +60,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
 
-    new WebpackManifestPlugin({
-      fileName: "asset-manifest.json",
-    }),
-
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: "./public/index.html",
-    }),
-
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
     new webpack.EnvironmentPlugin(getClientEnviroments()),
 
     new ESLintPlugin({
@@ -86,5 +73,7 @@ module.exports = {
       formatter: "table",
       failOnError: false,
     }),
+
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 };

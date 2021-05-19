@@ -7,9 +7,7 @@ import {
   ModelAutoTypeCheckingMode,
   registerRootStore,
   setGlobalConfig,
-  //tProp,
   prop,
-  //types,
 } from "mobx-keystone";
 import { v4 as uuidv4 } from "uuid";
 
@@ -19,10 +17,6 @@ setGlobalConfig({
 
 @model("nv/Todo")
 export class Todo extends Model({
-  //   id: tProp(types.string, () => uuidv4()),
-  //   text: tProp(types.string),
-  //   done: tProp(types.boolean, false),
-
   id: prop(() => uuidv4()),
   text: prop<string>(),
   done: prop<boolean>(false),
@@ -40,7 +34,6 @@ export class Todo extends Model({
 
 @model("nv/TodoList")
 export class TodoList extends Model({
-  //todos: tProp(types.array(types.model(Todo)), () => []),
   todos: prop<Todo[]>(() => []),
 }) {
   @computed

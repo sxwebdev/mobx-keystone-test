@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable unicorn/prevent-abbreviations */
 const { merge } = require("webpack-merge");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const common = require("./webpack.common.js");
 
 const { paths } = require("../../../configs/webpack")(__dirname);
@@ -48,5 +48,10 @@ module.exports = merge(common, {
     ],
   },
 
-  plugins: [],
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: "./public/index.html",
+    }),
+  ],
 });

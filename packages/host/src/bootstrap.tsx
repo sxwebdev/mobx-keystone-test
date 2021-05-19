@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { StoreProvider, myRootStore } from "stores2";
+import { StoreProvider, myRootStore } from "@frontend/host/src/stores";
 import App from "./App";
 
 ReactDOM.render(

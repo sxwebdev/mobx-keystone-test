@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable unicorn/prevent-abbreviations */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { merge } = require("webpack-merge");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+
 const common = require("./webpack.common.js");
 
 const { paths } = require("../../../configs/webpack")(__dirname);
@@ -61,6 +62,10 @@ module.exports = merge(common, {
         minifyCSS: true,
         minifyURLs: true,
       },
+    }),
+
+    new WebpackManifestPlugin({
+      fileName: "asset-manifest.json",
     }),
 
     // Extracts CSS into separate files

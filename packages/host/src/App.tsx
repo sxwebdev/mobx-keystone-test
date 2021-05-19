@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useStoreKS } from "stores2";
+import { useStoreKS } from "stores/";
 
 const App: React.FC = observer(() => {
   const { todoList } = useStoreKS();
